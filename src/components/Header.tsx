@@ -11,17 +11,17 @@ import { Settings } from './Settings'
 
 type Props = {
   onChange: React.Dispatch<React.SetStateAction<string>>
-  changeMode: React.Dispatch<React.SetStateAction<boolean>>
+  changeMode: (bool: boolean) => void
   mode: boolean
   changeColor: React.Dispatch<React.SetStateAction<IColor>>
   setCurrentLetter: React.Dispatch<React.SetStateAction<string[]>>
   setMatch: (value: React.SetStateAction<IMatch>) => void
   setNotFoundLetters: React.Dispatch<React.SetStateAction<string>>
   colors: IColor
-  endGame: boolean
+  setFocus: (index?: number) => void
 }
 
-export const Header = ({ setNotFoundLetters, setMatch, onChange, changeMode, changeColor, mode, colors, setCurrentLetter, endGame }: Props) => {
+export const Header = ({ setNotFoundLetters, setMatch, onChange, changeMode, changeColor, mode, colors, setCurrentLetter, setFocus }: Props) => {
   const { isOpen, onToggle, onClose } = useDisclosure();
 
   const ChangeDificult = (str: string) => {
@@ -55,7 +55,7 @@ export const Header = ({ setNotFoundLetters, setMatch, onChange, changeMode, cha
           <Text >Coisa de nerde</Text>
         </Box>
         <Box>
-          <Settings changeMode={changeMode} mode={mode} changeColor={changeColor} colors={colors} />
+          <Settings setFocus={setFocus} changeMode={changeMode} mode={mode} changeColor={changeColor} colors={colors} />
         </Box>
       </Flex>
     </Flex>

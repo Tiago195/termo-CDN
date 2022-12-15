@@ -33,8 +33,12 @@ export const Clipboard = ({ focus, setFocus, isCorrect, letter, currentLetter, s
   } = useDisclosure()
 
   const next = () => {
-    nextClipboard()
-    onClose()
+    if (match.currentClipboard === 3) {
+      onClose()
+    } else {
+      nextClipboard()
+      onClose()
+    }
   }
 
   useEffect(() => {

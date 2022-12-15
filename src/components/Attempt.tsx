@@ -87,8 +87,8 @@ export const Attempt = ({ setFocus, focus, match, isCorrect, currentLetter, setM
         >
           {Array.from({ length: 5 }).map((e, i) => (
             <PinInputField
-              borderBottom={match.chance === index && i === focus ? "1px" : "0px"}
-              _focus={{ borderBottom: '1px solid white' }}
+              borderBottom={match.chance === index && i === focus ? "5px solid #38A169" : "0px"}
+              _focus={{ borderBottom: '5px solid #38A169' }}
               key={i}
               onClick={() => setFocus(i)}
               marginInlineStart='0px !important'

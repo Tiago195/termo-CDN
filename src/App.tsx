@@ -31,6 +31,7 @@ export const App = () => {
   const [currentLetter, setCurrentLetter] = useState<string[]>(['', '', '', '', '']);
   const [notFoundLetters, setNotFoundLetters] = useState('');
   const [index, setIndex] = useState(0);
+  console.log(match.letters);
 
   const toast = useToast();
 
@@ -40,13 +41,16 @@ export const App = () => {
 
   const resetGame = () => {
     window.location.reload()
-    // onClose()
-    // setCurrentLetter(['', '', '', '', ''])
-    // setMatch(defaultMatch(dificult as 'Solo'))
   }
 
   const setFocus = (index = 0) => {
-    (main.current?.firstElementChild?.children[match.chance + 1].children[index] as HTMLInputElement)?.focus()
+    if (mode) {
+      (main.current?.children[match.currentClipboard].children[match.chance + 1].children[index] as HTMLInputElement)?.focus();
+    } else {
+      const elements = [...(main.current?.children as any)]
+      const indexElements = match.isCorrect.findIndex(e => !e);
+      (elements[indexElements].children[match.chance + 1].children[index] as HTMLInputElement)?.focus();
+    }
   }
 
   const sendTry = () => {
@@ -82,7 +86,7 @@ export const App = () => {
       isCorrect
     }))
 
-    if (!mode && t[match.currentClipboard]?.every(e => e.position)) {
+    if (mode && t[match.currentClipboard]?.every(e => e.position) && match.currentClipboard !== 3) {
       nextClipboard()
     }
 
@@ -106,14 +110,29 @@ export const App = () => {
   }, [match.chance])
 
   const onClick = ({ target }: any) => {
-    if (target.type !== "text") setFocus(index)
+    if (target.type !== "text" && !match.isCorrect.every(e => e)) setFocus(index)
+  }
+
+  const closeModalEndGame = () => {
+    setIsWin(false)
+    onClose()
   }
 
   return (
     <ChakraProvider theme={theme}>
       <Box minH="100vh" overflowX="hidden" textAlign="center" fontSize="xl" onClick={onClick}>
-        <Header setNotFoundLetters={setNotFoundLetters} setMatch={setMatch} endGame={isOpen} onChange={setDificult} changeMode={setMode} mode={mode} changeColor={setColors} colors={colors} setCurrentLetter={setCurrentLetter} />
-        <EndGame resetGame={resetGame} colors={colors} isOpen={isOpen} onOpen={onOpen} onClose={onClose} isWin={isWin} match={match} />
+        <Header
+          setNotFoundLetters={setNotFoundLetters}
+          setMatch={setMatch}
+          onChange={setDificult}
+          changeMode={setMode}
+          mode={mode}
+          changeColor={setColors}
+          colors={colors}
+          setCurrentLetter={setCurrentLetter}
+          setFocus={setFocus}
+        />
+        <EndGame resetGame={resetGame} colors={colors} isOpen={isOpen} onClose={closeModalEndGame} isWin={isWin} match={match} />
         <Flex justifyContent={mode ? 'center' : 'space-evenly'} wrap="wrap" ref={main} alignItems="center" gap="20px" margin="0 auto" marginTop={['25px', '40px']} w="100vw" maxW="1440px">
           {match.letters.map((letter, i) => (
             <Flex flexDirection="column" key={i} >

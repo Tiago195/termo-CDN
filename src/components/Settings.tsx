@@ -9,13 +9,14 @@ import { defaultColor, defaultConfig, getStorage, setStorage } from '../utils'
 import { IConfig } from '../interfaces/IConfig'
 
 type Props = {
-  changeMode: React.Dispatch<React.SetStateAction<boolean>>
+  changeMode: (bool: boolean) => void
+  setFocus: (index?: number) => void
   changeColor: React.Dispatch<React.SetStateAction<IColor>>
   mode: boolean
   colors: IColor
 }
 
-export const Settings = ({ changeMode, changeColor, mode, colors }: Props) => {
+export const Settings = ({ changeMode, changeColor, setFocus }: Props) => {
   // const [loading, setLoading] = useState(false);
   const [config, setConfig] = useState<IConfig>(getStorage('config'));
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -29,6 +30,7 @@ export const Settings = ({ changeMode, changeColor, mode, colors }: Props) => {
     changeMode(config.nilceMode)
     setStorage('config', 'colors', { ...config.colors })
     setStorage('config', 'nilceMode', config.nilceMode)
+    setFocus(0)
     onClose()
   }
 

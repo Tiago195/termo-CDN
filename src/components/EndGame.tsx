@@ -6,7 +6,6 @@ import { findInDb } from '../utils'
 
 type Props = {
   isOpen: boolean
-  onOpen: () => void
   onClose: () => void
   isWin: boolean
   match: IMatch
@@ -14,7 +13,7 @@ type Props = {
   resetGame: () => void
 }
 
-export const EndGame = ({ resetGame, isOpen, onOpen, onClose, isWin, match, colors }: Props) => {
+export const EndGame = ({ resetGame, isOpen, onClose, isWin, match, colors }: Props) => {
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>

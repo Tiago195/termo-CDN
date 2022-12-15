@@ -22,3 +22,7 @@
   opacity: 0.3;
   /* color: white; */
 }
+
+input {
+  caret-color: rgba(255, 0, 0, 0);
+}
