@@ -81,7 +81,7 @@ export const Settings = ({ changeMode, changeColor, setFocus }: Props) => {
 
               <FormControl display='flex' alignItems='center' justifyContent="space-between" >
                 <FormLabel htmlFor='mode' mb='0'>
-                  Ligar modo nilce?
+                  Ligar modo Nilce?
                 </FormLabel>
                 <Switch id='mode' size='lg' isChecked={config.nilceMode} onChange={nilceMode} />
               </FormControl>

@@ -23,13 +23,13 @@ export const EndGame = ({ resetGame, isOpen, onClose, isWin, match, colors }: Pr
         <ModalCloseButton />
         <ModalBody>
           <Text marginBottom="10px">
-            Este jogo é totalmente baseado em <a href="https://term.ooo/" style={{ borderBottom: "1px solid white" }}>TERMO</a> e foi desenvolvido apenas para desafiar a nilce.
+            Este jogo é totalmente baseado em <a href="https://term.ooo/" style={{ borderBottom: "1px solid white" }}>TERMO</a> e foi desenvolvido apenas para desafiar a Nilce.
           </Text>
-          <Text>Palavras Corretas: <Text color={colors.success} as="span">{match.letters.map(e => findInDb(e)).join(' - ')}</Text></Text>
-          <Text color="gray.400" fontSize="12px">Sim leon, eu não sei se o correto é usar "Este" ou "Esse" (To com você Jã1)</Text>
+          <Text>Palavra(s) Correta(s): <Text color={colors.success} as="span">{match.letters.map(e => findInDb(e)).join(' - ')}</Text></Text>
+          <Text color="gray.400" fontSize="12px">Sim Leon, eu não sei se o correto é usar "Este" ou "Esse" (To com você Jã1)</Text>
         </ModalBody>
         <ModalFooter gap="10px">
-          <Button bgColor="green.500" _light={{ color: "white" }} _hover={{ bgColor: "green.800" }} onClick={resetGame} >Tentar denovo</Button>
+          <Button bgColor="green.500" _light={{ color: "white" }} _hover={{ bgColor: "green.800" }} onClick={resetGame} >Tentar novamente</Button>
           <Button onClick={onClose}>Fechar</Button>
         </ModalFooter>
       </ModalContent>
