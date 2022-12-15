@@ -3,3 +3,22 @@
 * {
   font-family: 'Mitr', sans-serif !important;
 }
+
+.react-simple-keyboard {
+  background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.hg-button.hg-standardBtn {
+  width: auto !important;
+}
+
+.simple-keyboard.hg-layout-default .hg-button {
+  background-color: rgb(18, 23, 42);
+  color: white;
+}
+
+.simple-keyboard.hg-layout-default .hg-button.notFound {
+  /* background: rgb(85, 85, 85); */
+  opacity: 0.3;
+  /* color: white; */
+}

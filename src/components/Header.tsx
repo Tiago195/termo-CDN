@@ -2,7 +2,8 @@ import { Box, Flex, Text, useDisclosure } from '@chakra-ui/react'
 import React from 'react'
 import { AiOutlineInfoCircle } from 'react-icons/ai'
 import { IColor } from '../interfaces/IColor'
-import { setStorage } from '../utils'
+import { IMatch } from '../interfaces/IMatch'
+import { defaultMatch, setStorage } from '../utils'
 import { DrawerDificult } from './DrawerDificult'
 import { Instruction } from './Instruction'
 import { OptionsDificult } from './OptionsDificult'
@@ -13,18 +14,23 @@ type Props = {
   changeMode: React.Dispatch<React.SetStateAction<boolean>>
   mode: boolean
   changeColor: React.Dispatch<React.SetStateAction<IColor>>
+  setCurrentLetter: React.Dispatch<React.SetStateAction<string[]>>
+  setMatch: (value: React.SetStateAction<IMatch>) => void
   colors: IColor
+  endGame: boolean
 }
 
-export const Header = ({ onChange, changeMode, changeColor, mode, colors }: Props) => {
+export const Header = ({ setMatch, onChange, changeMode, changeColor, mode, colors, setCurrentLetter, endGame }: Props) => {
   const { isOpen, onToggle, onClose } = useDisclosure();
 
   const ChangeDificult = (str: string) => {
     // setCurrentLetter('')
+    setMatch(defaultMatch(str as 'Solo' | 'Dueto' | 'Quarteto'))
     setStorage('config', 'dificult', str)
     onChange(str)
+    setCurrentLetter(['', '', '', '', ''])
     onClose()
-    window.location.reload()
+    // window.location.reload()
   }
 
   return (

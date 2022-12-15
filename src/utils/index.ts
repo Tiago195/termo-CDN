@@ -127,17 +127,17 @@ export const validLetter = (letter: string[], tryLetter: string[]) => {
 }
 
 export const defaultColor:IColor = {
-  success: 'green.500',
-  warning: 'yellow.500',
-  default: 'black.500'
+  success: '#38A169',
+  warning: '#D69E2E',
+  default: '#1d232e'
 }
 
-const defaultConfig: IConfig = {
+export const defaultConfig: IConfig = {
   nilceMode: false,
   colors: {
-    default: 'black.500',
-    success: 'green.500',
-    warning: 'yellow.500'
+    success: '#38A169',
+    warning: '#D69E2E',
+    default: '#1d232e'
   },
   dificult: 'Solo'
 }
@@ -148,4 +148,13 @@ export const setStorage = (item: string, key: "nilceMode" | "colors" | "dificult
   const oldValue = getStorage(item);
 
   localStorage.setItem(item, JSON.stringify({...oldValue, [key]: value}))
+}
+
+export  const getNotFoundLetters = (historyAttempts: IAttempt[][][]) => {
+  const letterCorrect = new Set(historyAttempts.flat(3).filter(e => e.include || e.position).map(e => e.key));
+  const allLetters = new Set(historyAttempts.flat(3).map(e => e.key))
+
+  letterCorrect.forEach(x => allLetters.delete(x))
+
+  return [...allLetters].join(' ')
 }

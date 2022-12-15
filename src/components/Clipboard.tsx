@@ -14,7 +14,8 @@ type Props = {
   match: IMatch
   mode: boolean
   setMatch: React.Dispatch<React.SetStateAction<IMatch>>
-  setCurrentLetter: React.Dispatch<React.SetStateAction<string>>
+  setCurrentLetter: React.Dispatch<React.SetStateAction<string[]>>
+  currentLetter: string[]
   nextClipboard: () => void
   historyAttempts: IAttempt[][]
   colors: IColor
@@ -22,7 +23,7 @@ type Props = {
   sendTry: () => void
 }
 
-export const Clipboard = ({ isCorrect, letter, sendTry, mode, nextClipboard, colors, setCurrentLetter, historyAttempts, index, match, setMatch }: Props) => {
+export const Clipboard = ({ isCorrect, letter, currentLetter, sendTry, mode, nextClipboard, colors, setCurrentLetter, historyAttempts, index, match, setMatch }: Props) => {
   const {
     isOpen: isVisible,
     onClose,
@@ -58,6 +59,7 @@ export const Clipboard = ({ isCorrect, letter, sendTry, mode, nextClipboard, col
                 historyAttempts={historyAttempts[i]}
                 setMatch={setMatch}
                 setCurrentLetter={setCurrentLetter}
+                currentLetter={currentLetter}
                 colors={colors}
                 isCorrect={isCorrect}
                 sendTry={sendTry}
@@ -73,6 +75,7 @@ export const Clipboard = ({ isCorrect, letter, sendTry, mode, nextClipboard, col
               historyAttempts={historyAttempts[i]}
               setMatch={setMatch}
               setCurrentLetter={setCurrentLetter}
+              currentLetter={currentLetter}
               colors={colors}
               isCorrect={isCorrect}
               sendTry={sendTry}

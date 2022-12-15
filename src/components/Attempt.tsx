@@ -12,24 +12,35 @@ type Props = {
   historyLetter: string
   index: number
   historyAttempts: IAttempt[]
-  setCurrentLetter: React.Dispatch<React.SetStateAction<string>>
+  setCurrentLetter: React.Dispatch<React.SetStateAction<string[]>>
+  currentLetter: string[]
   isCorrect: boolean
   colors: IColor
   sendTry: () => void
 }
 
-export const Attempt = ({ match, isCorrect, setMatch, sendTry, colors, historyLetter, historyAttempts, index, setCurrentLetter }: Props) => {
-  // lembrar de voltar aqui depois
-  const refInput = useRef<HTMLInputElement>(null);
+export const Attempt = ({ match, isCorrect, currentLetter, setMatch, sendTry, colors, historyLetter, historyAttempts, index, setCurrentLetter }: Props) => {
+  const currentValue = match.chance === index ? currentLetter.reduce((a, b) => a += b === '' ? ' ' : b, '') : '';
 
-  const handleChange = (str: string) => {
-    setCurrentLetter(str)
-  }
+  const sendIfEnter = ({ target, key }: any) => {
+    if (key === "ArrowRight") target.nextElementSibling?.focus();
+    if (key === "ArrowLeft") target.previousElementSibling?.focus();
 
-  const sendIfEnter = ({ key }: any) => {
+    const index = Number(target.getAttribute("data-index"))
+    if (key.length === 1) {
+      setCurrentLetter((oldLetter) => oldLetter.map((e, i) => i === index ? key.toLowerCase() : e))
+      target.nextElementSibling?.focus();
+    }
+    if (key === "Backspace") {
+      if (currentLetter[index] === '') {
+        setCurrentLetter((oldLetter) => oldLetter.map((e, i) => i === index - 1 ? '' : e))
+        target.previousElementSibling?.focus()
+      }
+      setCurrentLetter((oldLetter) => oldLetter.map((e, i) => i === index ? '' : e))
+    }
+
     if (key === "Enter") {
       sendTry()
-      // refInput.current?.focus()
     }
   }
 
@@ -42,10 +53,9 @@ export const Attempt = ({ match, isCorrect, setMatch, sendTry, colors, historyLe
 
     return colors.default
   }
-  // console.log(historyLetter);
 
   return (
-    <HStack>
+    <HStack maxW={[`100px`, '200px']} >
       {historyAttempts || isCorrect ? (
         <PinInput
           type='alphanumeric'
@@ -53,23 +63,23 @@ export const Attempt = ({ match, isCorrect, setMatch, sendTry, colors, historyLe
           placeholder="🥳"
         >
           {Array.from({ length: 5 }).map((e, i) => (
-            <PinInputField key={i} bgColor={historyAttempts ? getColor(historyAttempts[i]) : undefined} readOnly />
+            <PinInputField marginInlineStart='0px !important' maxH={['20px', '40px']} margin='0' key={i} bgColor={historyAttempts ? getColor(historyAttempts[i]) : undefined} readOnly />
           ))}
         </PinInput>
       ) : (
         <PinInput
           type='alphanumeric'
           placeholder="_"
-          defaultValue=''
-          onChange={handleChange}
+          value={currentValue}
+          manageFocus={false}
           isDisabled={match.chance !== index}
-          autoFocus
+          focusBorderColor='rgba(255, 255, 255, 0.16)'
         >
-          <PinInputField onKeyUp={sendIfEnter} ref={refInput} />
-          <PinInputField onKeyUp={sendIfEnter} />
-          <PinInputField onKeyUp={sendIfEnter} />
-          <PinInputField onKeyUp={sendIfEnter} />
-          <PinInputField onKeyUp={sendIfEnter} />
+          <PinInputField marginInlineStart='0px !important' maxH={['20px', '40px']} onKeyDown={sendIfEnter} />
+          <PinInputField marginInlineStart='0px !important' maxH={['20px', '40px']} onKeyDown={sendIfEnter} />
+          <PinInputField marginInlineStart='0px !important' maxH={['20px', '40px']} onKeyDown={sendIfEnter} />
+          <PinInputField marginInlineStart='0px !important' maxH={['20px', '40px']} onKeyDown={sendIfEnter} />
+          <PinInputField marginInlineStart='0px !important' maxH={['20px', '40px']} onKeyDown={sendIfEnter} />
         </PinInput>
       )}
     </HStack>
