@@ -21,9 +21,11 @@ type Props = {
   colors: IColor
   isCorrect: boolean
   sendTry: () => void
+  focus: number
+  setFocus: React.Dispatch<React.SetStateAction<number>>
 }
 
-export const Clipboard = ({ isCorrect, letter, currentLetter, sendTry, mode, nextClipboard, colors, setCurrentLetter, historyAttempts, index, match, setMatch }: Props) => {
+export const Clipboard = ({ focus, setFocus, isCorrect, letter, currentLetter, sendTry, mode, nextClipboard, colors, setCurrentLetter, historyAttempts, index, match, setMatch }: Props) => {
   const {
     isOpen: isVisible,
     onClose,
@@ -52,6 +54,8 @@ export const Clipboard = ({ isCorrect, letter, currentLetter, sendTry, mode, nex
           match.currentClipboard === index && (
             Array.from({ length: match.maxChance }).map((e, i) => (
               <Attempt
+                focus={focus}
+                setFocus={setFocus}
                 key={i}
                 index={i}
                 match={match}
@@ -68,6 +72,8 @@ export const Clipboard = ({ isCorrect, letter, currentLetter, sendTry, mode, nex
         ) : (
           Array.from({ length: match.maxChance }).map((e, i) => (
             <Attempt
+              focus={focus}
+              setFocus={setFocus}
               key={i}
               index={i}
               match={match}

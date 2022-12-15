@@ -17,23 +17,33 @@ type Props = {
   isCorrect: boolean
   colors: IColor
   sendTry: () => void
+  focus: number
+  setFocus: React.Dispatch<React.SetStateAction<number>>
 }
 
-export const Attempt = ({ match, isCorrect, currentLetter, setMatch, sendTry, colors, historyLetter, historyAttempts, index, setCurrentLetter }: Props) => {
+export const Attempt = ({ setFocus, focus, match, isCorrect, currentLetter, setMatch, sendTry, colors, historyLetter, historyAttempts, index, setCurrentLetter }: Props) => {
   const currentValue = match.chance === index ? currentLetter.reduce((a, b) => a += b === '' ? ' ' : b, '') : '';
 
   const sendIfEnter = ({ target, key }: any) => {
-    if (key === "ArrowRight") target.nextElementSibling?.focus();
-    if (key === "ArrowLeft") target.previousElementSibling?.focus();
+    if (key === "ArrowRight") {
+      setFocus((old) => old < 4 ? old + 1 : old)
+      target.nextElementSibling?.focus();
+    }
+    if (key === "ArrowLeft") {
+      target.previousElementSibling?.focus();
+      setFocus((old) => old > 0 ? old - 1 : old)
+    }
 
     const index = Number(target.getAttribute("data-index"))
     if (key.length === 1) {
       setCurrentLetter((oldLetter) => oldLetter.map((e, i) => i === index ? key.toLowerCase() : e))
+      setFocus((old) => old < 4 ? old + 1 : old)
       target.nextElementSibling?.focus();
     }
     if (key === "Backspace") {
       if (currentLetter[index] === '') {
         setCurrentLetter((oldLetter) => oldLetter.map((e, i) => i === index - 1 ? '' : e))
+        setFocus((old) => old > 0 ? old - 1 : old)
         target.previousElementSibling?.focus()
       }
       setCurrentLetter((oldLetter) => oldLetter.map((e, i) => i === index ? '' : e))
@@ -75,11 +85,17 @@ export const Attempt = ({ match, isCorrect, currentLetter, setMatch, sendTry, co
           isDisabled={match.chance !== index}
           focusBorderColor='rgba(255, 255, 255, 0.16)'
         >
-          <PinInputField marginInlineStart='0px !important' maxH={['20px', '40px']} onKeyDown={sendIfEnter} />
-          <PinInputField marginInlineStart='0px !important' maxH={['20px', '40px']} onKeyDown={sendIfEnter} />
-          <PinInputField marginInlineStart='0px !important' maxH={['20px', '40px']} onKeyDown={sendIfEnter} />
-          <PinInputField marginInlineStart='0px !important' maxH={['20px', '40px']} onKeyDown={sendIfEnter} />
-          <PinInputField marginInlineStart='0px !important' maxH={['20px', '40px']} onKeyDown={sendIfEnter} />
+          {Array.from({ length: 5 }).map((e, i) => (
+            <PinInputField
+              borderBottom={match.chance === index && i === focus ? "1px" : "0px"}
+              _focus={{ borderBottom: '1px solid white' }}
+              key={i}
+              onClick={() => setFocus(i)}
+              marginInlineStart='0px !important'
+              maxH={['20px', '40px']}
+              onKeyDown={sendIfEnter}
+            />
+          ))}
         </PinInput>
       )}
     </HStack>

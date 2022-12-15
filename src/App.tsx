@@ -30,6 +30,7 @@ export const App = () => {
   const main = useRef<HTMLDivElement>(null)
   const [currentLetter, setCurrentLetter] = useState<string[]>(['', '', '', '', '']);
   const [notFoundLetters, setNotFoundLetters] = useState('');
+  const [index, setIndex] = useState(0);
 
   const toast = useToast();
 
@@ -49,8 +50,6 @@ export const App = () => {
   }
 
   const sendTry = () => {
-    if (currentLetter.every(e => e)) setFocus(4)
-    else setFocus()
 
     if (!findInDb(currentLetter.join(''))) {
       toast({
@@ -61,7 +60,7 @@ export const App = () => {
       })
       return
     }
-
+    setIndex(0)
     const t = match.letters.map((e, i) => validLetter(e.split(''), currentLetter))
 
     const hAttempts = match.letters
@@ -93,10 +92,6 @@ export const App = () => {
     setNotFoundLetters(getNotFoundLetters(hAttempts))
   }
 
-  // useEffect(() => {
-  //   setMatch(defaultMatch(dificult as 'Solo' | 'Dueto' | 'Quarteto'))
-  // }, [dificult])
-
   useEffect(() => {
     setMatch(defaultMatch(dificult as 'Solo' | 'Dueto' | 'Quarteto'))
   }, [mode])
@@ -110,16 +105,21 @@ export const App = () => {
 
   }, [match.chance])
 
+  const onClick = ({ target }: any) => {
+    if (target.type !== "text") setFocus(index)
+  }
+
   return (
     <ChakraProvider theme={theme}>
-      <Box minH="100vh" overflowX="hidden" textAlign="center" fontSize="xl">
-        <Header setMatch={setMatch} endGame={isOpen} onChange={setDificult} changeMode={setMode} mode={mode} changeColor={setColors} colors={colors} setCurrentLetter={setCurrentLetter} />
+      <Box minH="100vh" overflowX="hidden" textAlign="center" fontSize="xl" onClick={onClick}>
+        <Header setNotFoundLetters={setNotFoundLetters} setMatch={setMatch} endGame={isOpen} onChange={setDificult} changeMode={setMode} mode={mode} changeColor={setColors} colors={colors} setCurrentLetter={setCurrentLetter} />
         <EndGame resetGame={resetGame} colors={colors} isOpen={isOpen} onOpen={onOpen} onClose={onClose} isWin={isWin} match={match} />
-        {/* <input type="text" /> */}
         <Flex justifyContent={mode ? 'center' : 'space-evenly'} wrap="wrap" ref={main} alignItems="center" gap="20px" margin="0 auto" marginTop={['25px', '40px']} w="100vw" maxW="1440px">
           {match.letters.map((letter, i) => (
             <Flex flexDirection="column" key={i} >
               <Clipboard
+                focus={index}
+                setFocus={setIndex}
                 index={i}
                 letter={letter}
                 mode={mode}
@@ -136,7 +136,7 @@ export const App = () => {
             </Flex>
           ))}
         </Flex>
-        <KeyboardWrapper notFoundLetters={notFoundLetters} historyAttempts={match.historyAttempts} sendTry={sendTry} setCurrentLetter={setCurrentLetter} />
+        <KeyboardWrapper focus={index} setFocus={setIndex} notFoundLetters={notFoundLetters} historyAttempts={match.historyAttempts} sendTry={sendTry} setCurrentLetter={setCurrentLetter} />
       </Box>
     </ChakraProvider>
   )

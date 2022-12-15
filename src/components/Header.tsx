@@ -16,11 +16,12 @@ type Props = {
   changeColor: React.Dispatch<React.SetStateAction<IColor>>
   setCurrentLetter: React.Dispatch<React.SetStateAction<string[]>>
   setMatch: (value: React.SetStateAction<IMatch>) => void
+  setNotFoundLetters: React.Dispatch<React.SetStateAction<string>>
   colors: IColor
   endGame: boolean
 }
 
-export const Header = ({ setMatch, onChange, changeMode, changeColor, mode, colors, setCurrentLetter, endGame }: Props) => {
+export const Header = ({ setNotFoundLetters, setMatch, onChange, changeMode, changeColor, mode, colors, setCurrentLetter, endGame }: Props) => {
   const { isOpen, onToggle, onClose } = useDisclosure();
 
   const ChangeDificult = (str: string) => {
@@ -29,6 +30,7 @@ export const Header = ({ setMatch, onChange, changeMode, changeColor, mode, colo
     setStorage('config', 'dificult', str)
     onChange(str)
     setCurrentLetter(['', '', '', '', ''])
+    setNotFoundLetters('')
     onClose()
     // window.location.reload()
   }

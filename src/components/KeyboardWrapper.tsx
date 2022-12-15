@@ -9,9 +9,11 @@ type Props = {
   setCurrentLetter: React.Dispatch<React.SetStateAction<string[]>>
   historyAttempts: IAttempt[][][]
   notFoundLetters: string
+  focus: number
+  setFocus: React.Dispatch<React.SetStateAction<number>>
 }
 
-export const KeyboardWrapper = ({ notFoundLetters, sendTry, setCurrentLetter, historyAttempts }: Props) => {
+export const KeyboardWrapper = ({ focus, setFocus, notFoundLetters, sendTry, setCurrentLetter, historyAttempts }: Props) => {
 
   const keyboard = useRef<any>(null);
 
@@ -26,21 +28,22 @@ export const KeyboardWrapper = ({ notFoundLetters, sendTry, setCurrentLetter, hi
   const onKeyReleased = (key: string) => {
     if (key.length === 1) {
       setCurrentLetter((old) => {
-        const index = old.findIndex(e => e === '')
+        // const index = old.findIndex(e => e === '')
         const copy = [...old]
-        if (index === -1) copy[copy.length - 1] = key
-        else copy[index] = key
+        // if (index === -1) copy[copy.length - 1] = key
+        copy[focus] = key
         return copy
       })
+      setFocus((old) => old < 4 ? old + 1 : old)
     }
 
     if (key === '{bksp}') {
       setCurrentLetter((old) => {
-        const copy = [...old].reverse()
-        const index = copy.findIndex(e => e)
-        copy[index] = ''
-        return copy.reverse()
+        const copy = [...old]
+        copy[focus] = ''
+        return copy
       })
+      setFocus((old) => old > 0 ? old - 1 : old)
     }
 
     if (key === 'Enter') {
