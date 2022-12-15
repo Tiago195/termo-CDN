@@ -7,6 +7,11 @@ import {
   Button,
   useToast,
   useDisclosure,
+  Slider,
+  SliderTrack,
+  SliderFilledTrack,
+  SliderThumb,
+  Progress,
 } from "@chakra-ui/react"
 import { IMatch } from "./interfaces/IMatch";
 import { defaultColor, defaultCurrentAttempt, defaultMatch, findInDb, getNotFoundLetters, getStorage, validLetter } from "./utils";
@@ -135,7 +140,7 @@ export const App = () => {
         <EndGame resetGame={resetGame} colors={colors} isOpen={isOpen} onClose={closeModalEndGame} isWin={isWin} match={match} />
         <Flex justifyContent={mode ? 'center' : 'space-evenly'} wrap="wrap" ref={main} alignItems="center" gap="20px" margin="0 auto" marginTop={['25px', '40px']} w="100vw" maxW="1440px">
           {match.letters.map((letter, i) => (
-            <Flex flexDirection="column" key={i} >
+            <Flex flexDirection="column" key={i}>
               <Clipboard
                 focus={index}
                 setFocus={setIndex}

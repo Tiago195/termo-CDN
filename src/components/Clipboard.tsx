@@ -53,45 +53,25 @@ export const Clipboard = ({ focus, setFocus, isCorrect, letter, currentLetter, s
         <Info isVisible={mode && isVisible} onClose={next} />
       </Flex>
       {
-        mode ? (
-
-          match.currentClipboard === index && (
-            Array.from({ length: match.maxChance }).map((e, i) => (
-              <Attempt
-                focus={focus}
-                setFocus={setFocus}
-                key={i}
-                index={i}
-                match={match}
-                historyLetter={match.historyLetters[i]}
-                historyAttempts={historyAttempts[i]}
-                setMatch={setMatch}
-                setCurrentLetter={setCurrentLetter}
-                currentLetter={currentLetter}
-                colors={colors}
-                isCorrect={isCorrect}
-                sendTry={sendTry}
-              />
-            )))
-        ) : (
-          Array.from({ length: match.maxChance }).map((e, i) => (
-            <Attempt
-              focus={focus}
-              setFocus={setFocus}
-              key={i}
-              index={i}
-              match={match}
-              historyLetter={match.historyLetters[i]}
-              historyAttempts={historyAttempts[i]}
-              setMatch={setMatch}
-              setCurrentLetter={setCurrentLetter}
-              currentLetter={currentLetter}
-              colors={colors}
-              isCorrect={isCorrect}
-              sendTry={sendTry}
-            />
-          ))
-        )
+        Array.from({ length: match.maxChance }).map((e, i) => (
+          <Attempt
+            focus={focus}
+            setFocus={setFocus}
+            key={i}
+            ClipboardIndex={index}
+            index={i}
+            match={match}
+            historyLetter={match.historyLetters[i]}
+            historyAttempts={historyAttempts[i]}
+            setMatch={setMatch}
+            setCurrentLetter={setCurrentLetter}
+            mode={mode}
+            currentLetter={currentLetter}
+            colors={colors}
+            isCorrect={isCorrect}
+            sendTry={sendTry}
+          />
+        ))
       }
     </>
   )

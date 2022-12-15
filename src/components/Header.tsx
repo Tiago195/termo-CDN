@@ -26,14 +26,12 @@ export const Header = ({ setNotFoundLetters, setMatch, onChange, changeMode, cha
   const { isOpen, onToggle, onClose } = useDisclosure();
 
   const ChangeDificult = (str: string) => {
-    // setCurrentLetter('')
     setMatch(defaultMatch(str as 'Solo' | 'Dueto' | 'Quarteto'))
     setStorage('config', 'dificult', str)
     onChange(str)
     setCurrentLetter(['', '', '', '', ''])
     setNotFoundLetters('')
     onClose()
-    // window.location.reload()
   }
 
   return (
@@ -44,7 +42,7 @@ export const Header = ({ setNotFoundLetters, setMatch, onChange, changeMode, cha
         </Flex>
         <Box w="100px">
           <Link isExternal href='https://www.youtube.com/@coisadenerd'>
-            <Button p="0 10px">
+            <Button p="0 10px" bg="blackAlpha.800">
               <Logo />
             </Button>
           </Link>
