@@ -25,7 +25,8 @@ type Props = {
 
 export const Attempt = ({ ClipboardIndex, setFocus, mode, focus, match, isCorrect, currentLetter, setMatch, sendTry, colors, historyLetter, historyAttempts, index, setCurrentLetter }: Props) => {
   const currentValue = match.chance === index ? currentLetter.reduce((a, b) => a += b === '' ? ' ' : b, '') : '';
-  const isMode = mode && ClipboardIndex === match.currentClipboard;
+  const inMode = mode ? ClipboardIndex === match.currentClipboard ? '100%' : '0' : '100%';
+
   const sendIfEnter = ({ target, key }: any) => {
     if (key === "ArrowRight") {
       setFocus((old) => old < 4 ? old + 1 : old)
@@ -67,7 +68,7 @@ export const Attempt = ({ ClipboardIndex, setFocus, mode, focus, match, isCorrec
   }
 
   return (
-    <HStack maxW={[`100px`, '200px']} transition={'all .6s'} height={isMode ? '100%' : '0'} opacity={isMode ? '1' : '0'}>
+    <HStack maxW={[`100px`, '200px']} transition={'all .5s'} height={inMode} opacity={inMode}>
       {historyAttempts || isCorrect ? (
         <PinInput
           type='alphanumeric'
@@ -89,6 +90,7 @@ export const Attempt = ({ ClipboardIndex, setFocus, mode, focus, match, isCorrec
         >
           {Array.from({ length: 5 }).map((e, i) => (
             <PinInputField
+              _disabled={{ cursor: '' }}
               _light={{ border: '1px solid black', borderBottom: match.chance === index && i === focus ? "5px solid #38A169" : "0px" }}
               borderBottom={match.chance === index && i === focus ? "5px solid #38A169" : "0px"}
               _focus={{ borderBottom: '5px solid #38A169' }}

@@ -36,7 +36,6 @@ export const App = () => {
   const [currentLetter, setCurrentLetter] = useState<string[]>(['', '', '', '', '']);
   const [notFoundLetters, setNotFoundLetters] = useState('');
   const [index, setIndex] = useState(0);
-  console.log(match.letters);
 
   const toast = useToast();
 
@@ -138,7 +137,7 @@ export const App = () => {
           setFocus={setFocus}
         />
         <EndGame resetGame={resetGame} colors={colors} isOpen={isOpen} onClose={closeModalEndGame} isWin={isWin} match={match} />
-        <Flex justifyContent={mode ? 'center' : 'space-evenly'} wrap="wrap" ref={main} alignItems="center" gap="20px" margin="0 auto" marginTop={['25px', '40px']} w="100vw" maxW="1440px">
+        <Flex justifyContent='space-evenly' wrap="wrap" ref={main} alignItems="center" gap="20px" margin="0 auto" marginTop={['25px', '40px']} w="100vw" maxW="1440px">
           {match.letters.map((letter, i) => (
             <Flex flexDirection="column" key={i}>
               <Clipboard
