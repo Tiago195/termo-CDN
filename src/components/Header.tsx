@@ -1,8 +1,9 @@
-import { Box, Flex, Text, useDisclosure } from '@chakra-ui/react'
+import { Box, Button, Flex, Image, Link, Text, useDisclosure } from '@chakra-ui/react'
 import React from 'react'
 import { AiOutlineInfoCircle } from 'react-icons/ai'
 import { IColor } from '../interfaces/IColor'
 import { IMatch } from '../interfaces/IMatch'
+import { Logo } from '../Logo'
 import { defaultMatch, setStorage } from '../utils'
 import { DrawerDificult } from './DrawerDificult'
 import { Instruction } from './Instruction'
@@ -41,8 +42,12 @@ export const Header = ({ setNotFoundLetters, setMatch, onChange, changeMode, cha
         <Flex gap="10px" fontWeight="medium" letterSpacing="1px">
           <OptionsDificult onChange={ChangeDificult} />
         </Flex>
-        <Box>
-          <AiOutlineInfoCircle />
+        <Box w="100px">
+          <Link isExternal href='https://www.youtube.com/@coisadenerd'>
+            <Button p="0 10px">
+              <Logo />
+            </Button>
+          </Link>
         </Box>
       </Flex>
 
@@ -52,7 +57,7 @@ export const Header = ({ setNotFoundLetters, setMatch, onChange, changeMode, cha
           <Instruction />
         </Flex>
         <Box>
-          <Text >Coisa de nerde</Text>
+          <Text >COISA DE NERDE</Text>
         </Box>
         <Box>
           <Settings setFocus={setFocus} changeMode={changeMode} mode={mode} changeColor={changeColor} colors={colors} />

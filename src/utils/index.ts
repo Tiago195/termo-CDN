@@ -129,7 +129,7 @@ export const validLetter = (letter: string[], tryLetter: string[]) => {
 export const defaultColor:IColor = {
   success: '#38A169',
   warning: '#D69E2E',
-  default: '#1d232e'
+  default: '#1d232e42'
 }
 
 export const defaultConfig: IConfig = {
@@ -137,7 +137,7 @@ export const defaultConfig: IConfig = {
   colors: {
     success: '#38A169',
     warning: '#D69E2E',
-    default: '#1d232e'
+    default: '#1d232e42'
   },
   dificult: 'Solo'
 }
