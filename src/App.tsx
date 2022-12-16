@@ -87,8 +87,8 @@ export const App = () => {
     if (mode && t[match.currentClipboard]?.every(e => e.position) && match.currentClipboard !== 3) {
       nextClipboard()
     }
-
-    if (isCorrect.every(e => e) || match.chance + 1 === match.maxChance) setIsWin(match.chance + 1 !== match.maxChance)
+    const isWin = isCorrect.every(e => e);
+    if (isWin || match.chance + 1 === match.maxChance) setIsWin(isWin)
 
     setCurrentLetter(['', '', '', '', '']);
     setNotFoundLetters(getNotFoundLetters(hAttempts))
@@ -119,7 +119,7 @@ export const App = () => {
 
   return (
     <ChakraProvider theme={theme}>
-      <Box minH="100vh" overflowX="hidden" textAlign="center" fontSize="xl" onClick={onClick}>
+      <Flex flexDirection="column" minH="100vh" overflow="hidden" textAlign="center" fontSize="xl" onClick={onClick}>
         <Header
           setNotFoundLetters={setNotFoundLetters}
           setMatch={setMatch}
@@ -132,9 +132,9 @@ export const App = () => {
           setFocus={setFocus}
         />
         <EndGame resetGame={resetGame} colors={colors} isOpen={isOpen} onClose={closeModalEndGame} isWin={isWin} match={match} />
-        <Flex justifyContent='space-evenly' wrap="wrap" ref={main} alignItems="center" gap="20px" margin="0 auto" marginTop={['25px', '40px']} w="100vw" maxW="1440px">
+        <Flex justifyContent='space-evenly' wrap="wrap" ref={main} alignItems="center" margin="0 auto" marginTop={['10px', '40px']} w="100vw" maxW="1440px" flex="1">
           {match.letters.map((letter, i) => (
-            <Flex flexDirection="column" key={i}>
+            <Flex flexDirection="column" key={i} w={["50%", '50%', '50%', 'auto']} alignItems="center" mb="20px">
               <Clipboard
                 focus={index}
                 setFocus={setIndex}
@@ -155,7 +155,7 @@ export const App = () => {
           ))}
         </Flex>
         <KeyboardWrapper focus={index} setFocus={setIndex} notFoundLetters={notFoundLetters} historyAttempts={match.historyAttempts} sendTry={sendTry} setCurrentLetter={setCurrentLetter} />
-      </Box>
+      </Flex>
     </ChakraProvider>
   )
 }

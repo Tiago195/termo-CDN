@@ -67,7 +67,7 @@ export const Attempt = ({ ClipboardIndex, setFocus, mode, focus, match, isCorrec
   }
 
   return (
-    <HStack maxW={[`100px`, '200px']} transition={'all .5s'} height={inMode} opacity={inMode}>
+    <HStack transition={'all .5s'} maxW={match.letters.length > 1 ? ["100px", "100%"] : '100%'} height={inMode} opacity={inMode}>
       {historyAttempts || isCorrect ? (
         <PinInput
           type='alphanumeric'
@@ -75,7 +75,14 @@ export const Attempt = ({ ClipboardIndex, setFocus, mode, focus, match, isCorrec
           placeholder="🥳"
         >
           {Array.from({ length: 5 }).map((e, i) => (
-            <PinInputField marginInlineStart='0px !important' maxH={['20px', '40px']} margin='0' key={i} bgColor={historyAttempts ? getColor(historyAttempts[i]) : undefined} readOnly />
+            <PinInputField
+              marginInlineStart='0px !important'
+              margin='0'
+              key={i}
+              bgColor={historyAttempts ? getColor(historyAttempts[i]) : undefined}
+              readOnly
+              h={match.letters.length > 1 ? ["20px", "40px"] : ['32px', '40px']}
+            />
           ))}
         </PinInput>
       ) : (
@@ -89,6 +96,7 @@ export const Attempt = ({ ClipboardIndex, setFocus, mode, focus, match, isCorrec
         >
           {Array.from({ length: 5 }).map((e, i) => (
             <PinInputField
+              h={match.letters.length > 1 ? ["20px", "40px"] : ['32px', '40px']}
               _disabled={{ cursor: '' }}
               _light={{ border: '1px solid black', borderBottom: match.chance === index && i === focus ? "5px solid #38A169" : "0px" }}
               borderBottom={match.chance === index && i === focus ? "5px solid #38A169" : "0px"}
@@ -96,7 +104,7 @@ export const Attempt = ({ ClipboardIndex, setFocus, mode, focus, match, isCorrec
               key={i}
               onClick={() => setFocus(i)}
               marginInlineStart='0px !important'
-              maxH={['20px', '40px']}
+
               onKeyDown={sendIfEnter}
             />
           ))}
