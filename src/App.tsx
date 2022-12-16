@@ -50,12 +50,14 @@ export const App = () => {
   }
 
   const sendTry = () => {
+    const letter = currentLetter.join('');
+    if (!findInDb(letter)) {
+      const valid = letter === "risao" || letter === "raios"
 
-    if (!findInDb(currentLetter.join(''))) {
       toast({
         status: "info",
         duration: 2000,
-        title: "Palavra invalida 😒",
+        title: valid ? "Agora você vai começar com outra palavra!! 😋" : "Palavra invalida 😒",
         position: 'top'
       })
       return
@@ -106,6 +108,7 @@ export const App = () => {
   }, [match.chance])
 
   const onClick = ({ target }: any) => {
+    if (target.placeholder === "_") setFocus(index)
     if (target.type !== "text" && !match.isCorrect.every(e => e)) setFocus(index)
   }
 
