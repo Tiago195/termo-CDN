@@ -4,20 +4,12 @@ import {
   Box,
   theme,
   Flex,
-  Button,
   useToast,
   useDisclosure,
-  Slider,
-  SliderTrack,
-  SliderFilledTrack,
-  SliderThumb,
-  Progress,
 } from "@chakra-ui/react"
 import { IMatch } from "./interfaces/IMatch";
-import { defaultColor, defaultCurrentAttempt, defaultMatch, findInDb, getNotFoundLetters, getStorage, validLetter } from "./utils";
+import { defaultColor, defaultMatch, findInDb, getNotFoundLetters, getStorage, validLetter } from "./utils";
 import { Clipboard } from "./components/Clipboard";
-import { ICurrentAttempt } from "./interfaces/ICurrentAttempt";
-import { IAttempt } from "./interfaces/IAttempt";
 import { Header } from "./components/Header";
 import './index.css'
 import { IColor } from "./interfaces/IColor";

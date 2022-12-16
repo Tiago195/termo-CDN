@@ -4,11 +4,12 @@ import { IColor } from '../interfaces/IColor';
 import { IConfig } from '../interfaces/IConfig';
 import { ICurrentAttempt } from '../interfaces/ICurrentAttempt';
 import { IMatch } from '../interfaces/IMatch';
+const array = Object.values(json).flat();
 
-export const getRandomLetter = () => replaceSpecialChars(json[Math.trunc(Math.random() * 1000)])
+export const getRandomLetter = () => replaceSpecialChars(array[Math.trunc(Math.random() * 12830)])
 
 export const findInDb = (letter: string) => {
-  return json.find(e => replaceSpecialChars(e) === letter)
+  return json[(letter[0] as "a")].find(e => replaceSpecialChars(e) === letter)
 }
 
 export const replaceSpecialChars =(str: string) => {
