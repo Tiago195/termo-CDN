@@ -59,7 +59,6 @@ export const Attempt = ({ ClipboardIndex, setFocus, mode, focus, match, isCorrec
 
   const getColor = (attempt: IAttempt | undefined) => {
     if (!attempt) return
-    // console.log(attempt);
 
     if (attempt.position && attempt.include) return colors.success
     if (attempt.include) return colors.warning

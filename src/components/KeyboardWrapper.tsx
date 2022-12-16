@@ -58,7 +58,6 @@ export const KeyboardWrapper = ({ focus, setFocus, notFoundLetters, sendTry, set
         <Keyboard
           keyboardRef={r => (keyboard.current = r)}
           layout={layout}
-          onRender={() => console.log("Rendered")}
           display={{ '{bksp}': '⌫' }}
           onKeyReleased={onKeyReleased}
           buttonTheme={[
