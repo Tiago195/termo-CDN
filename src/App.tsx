@@ -108,7 +108,7 @@ export const App = () => {
   }, [match.chance])
 
   const onClick = ({ target }: any) => {
-    if (target.placeholder === "_") setFocus(index)
+    if (target.placeholder === "_" || target.value?.length === 1) setFocus(index)
     if (target.type !== "text" && !match.isCorrect.every(e => e)) setFocus(index)
   }
 
