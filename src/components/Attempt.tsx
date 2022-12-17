@@ -97,6 +97,7 @@ export const Attempt = ({ ClipboardIndex, setFocus, mode, focus, match, isCorrec
           {Array.from({ length: 5 }).map((e, i) => (
             <PinInputField
               h={match.letters.length > 1 ? ["20px", "40px"] : ['32px', '40px']}
+              readOnly
               _disabled={{ cursor: '' }}
               _light={{ border: '1px solid black', borderBottom: match.chance === index && i === focus ? "5px solid #38A169" : "0px" }}
               borderBottom={match.chance === index && i === focus ? "5px solid #38A169" : "0px"}
