@@ -26,6 +26,17 @@ type Props = {
 export const Attempt = ({ ClipboardIndex, setFocus, mode, focus, match, isCorrect, currentLetter, setMatch, sendTry, colors, historyLetter, historyAttempts, index, setCurrentLetter }: Props) => {
   const currentValue = match.chance === index ? currentLetter.reduce((a, b) => a += b === '' ? ' ' : b, '') : '';
   const inMode = mode ? ClipboardIndex === match.currentClipboard ? '100%' : '0' : '100%';
+  const qtdLetters = match.letters.length as 1 | 2 | 4;
+  const boxSize = {
+    1: [50, 83, 83, 53],
+    2: [31, 63, 63, 12],
+    4: [6, 10, 45]
+  }
+  const fontSize = {
+    1: ["30px", "50px", "50px", "34px"],
+    2: ["22px", "40px", "40px", "30px"],
+    4: ["14px", "20px", "20px", "26px"]
+  }
 
   const sendIfEnter = ({ target, key }: any) => {
     if (key === "ArrowRight") {
@@ -65,9 +76,9 @@ export const Attempt = ({ ClipboardIndex, setFocus, mode, focus, match, isCorrec
 
     return colors.default
   }
-
+  // maxW={match.letters.length > 1 ? ["100px", "100%"] : '100%'}
   return (
-    <HStack transition={'all .5s'} maxW={match.letters.length > 1 ? ["100px", "100%"] : '100%'} height={inMode} opacity={inMode}>
+    <HStack transition={'all .5s'} height={inMode} opacity={inMode}>
       {historyAttempts || isCorrect ? (
         <PinInput
           type='alphanumeric'
@@ -79,9 +90,13 @@ export const Attempt = ({ ClipboardIndex, setFocus, mode, focus, match, isCorrec
               marginInlineStart='0px !important'
               margin='0'
               key={i}
+              borderWidth="0.125em"
               bgColor={historyAttempts ? getColor(historyAttempts[i]) : undefined}
               readOnly
-              h={match.letters.length > 1 ? ["20px", "40px"] : ['32px', '40px']}
+              boxSize={boxSize[qtdLetters]}
+              fontSize={fontSize[qtdLetters]}
+              textTransform="uppercase"
+              fontWeight="bold"
             />
           ))}
         </PinInput>
@@ -96,12 +111,19 @@ export const Attempt = ({ ClipboardIndex, setFocus, mode, focus, match, isCorrec
         >
           {Array.from({ length: 5 }).map((e, i) => (
             <PinInputField
-              h={match.letters.length > 1 ? ["20px", "40px"] : ['32px', '40px']}
+              // h={qtdLetters > 1 ? ["20px", "40px"] : ['32px', '40px']}
+              boxSize={boxSize[qtdLetters]}
+              fontSize={fontSize[qtdLetters]}
+              fontWeight="bold"
+              // fontSize={"2.5em"}
               readOnly
+              borderWidth="0.125em"
               _disabled={{ cursor: '' }}
-              _light={{ border: '1px solid black', borderBottom: match.chance === index && i === focus ? "5px solid #38A169" : "0px" }}
-              borderBottom={match.chance === index && i === focus ? "5px solid #38A169" : "0px"}
-              _focus={{ borderBottom: '5px solid #38A169' }}
+              _light={{ border: '1px solid black', borderBottom: match.chance === index && i === focus ? "0.35em solid #38A169" : "0px" }}
+              borderBottom={match.chance === index && i === focus ? "0.3rem solid #38A169" : "auto"}
+              borderBottomWidth={".3rem"}
+              textTransform="uppercase"
+              _focus={{ borderBottom: '0.3rem solid #38A169' }}
               key={i}
               onClick={() => setFocus(i)}
               marginInlineStart='0px !important'

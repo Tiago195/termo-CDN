@@ -54,7 +54,7 @@ export const KeyboardWrapper = ({ focus, setFocus, notFoundLetters, sendTry, set
 
   return (
     <Flex color="black" justifyContent="center" w="100vw" >
-      <Box w={['100vw', '80vw', '60vw']} >
+      <Box w={['100vw', '100vw', '100vw', '60vw']}>
         <Keyboard
           keyboardRef={r => (keyboard.current = r)}
           layout={layout}

@@ -12,9 +12,14 @@
   width: auto !important;
 }
 
+.react-simple-keyboard.simple-keyboard.hg-theme-default.hg-layout-default {
+  padding: 0px;
+}
+
 .simple-keyboard.hg-layout-default .hg-button {
   background-color: rgb(18, 23, 42);
   color: white;
+  /* height: auto; */
 }
 
 .simple-keyboard.hg-layout-default .hg-button.notFound {

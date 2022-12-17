@@ -132,9 +132,9 @@ export const App = () => {
           setFocus={setFocus}
         />
         <EndGame resetGame={resetGame} colors={colors} isOpen={isOpen} onClose={closeModalEndGame} isWin={isWin} match={match} />
-        <Flex justifyContent='space-evenly' wrap="wrap" ref={main} alignItems="center" margin="0 auto" marginTop={['10px', '40px']} w="100vw" maxW="1440px" flex="1">
+        <Flex justifyContent='space-evenly' wrap="wrap" ref={main} alignItems="center" margin="0 auto" marginTop={['10px', '20px']} w="100vw" maxW="1440px" flex="1">
           {match.letters.map((letter, i) => (
-            <Flex flexDirection="column" key={i} w={["50%", '50%', '50%', 'auto']} alignItems="center" mb="20px">
+            <Flex flexDirection="column" key={i} w={[`${match.letters.length === 1 ? "100%" : "50%"}`, '50%', '50%', 'auto']} alignItems="center" mb="5px">
               <Clipboard
                 focus={index}
                 setFocus={setIndex}
