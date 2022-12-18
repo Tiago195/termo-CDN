@@ -14,9 +14,10 @@ type Props = {
   changeColor: React.Dispatch<React.SetStateAction<IColor>>
   mode: boolean
   colors: IColor
+  setNotFoundLetters: React.Dispatch<React.SetStateAction<string>>
 }
 
-export const Settings = ({ changeMode, changeColor, setFocus }: Props) => {
+export const Settings = ({ setNotFoundLetters, changeMode, changeColor, setFocus }: Props) => {
   // const [loading, setLoading] = useState(false);
   const [config, setConfig] = useState<IConfig>(getStorage('config'));
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -30,7 +31,7 @@ export const Settings = ({ changeMode, changeColor, setFocus }: Props) => {
     changeMode(config.nilceMode)
     setStorage('config', 'colors', { ...config.colors })
     setStorage('config', 'nilceMode', config.nilceMode)
-    setFocus(0)
+    setNotFoundLetters('')
     onClose()
   }
 

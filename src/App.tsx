@@ -108,7 +108,7 @@ export const App = () => {
   }, [match.chance])
 
   const onClick = ({ target }: any) => {
-    if (target.placeholder === "_" || target.value?.length === 1) setFocus(index)
+    if (target.placeholder === "_") return setFocus(index)
     if (target.type !== "text" && !match.isCorrect.every(e => e)) setFocus(index)
   }
 
@@ -138,6 +138,7 @@ export const App = () => {
               <Clipboard
                 focus={index}
                 setFocus={setIndex}
+                changeFocus={setFocus}
                 index={i}
                 letter={letter}
                 mode={mode}

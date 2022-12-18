@@ -21,9 +21,10 @@ type Props = {
   ClipboardIndex: number
   focus: number
   setFocus: React.Dispatch<React.SetStateAction<number>>
+  changeFocus: (index?: number) => void
 }
 
-export const Attempt = ({ ClipboardIndex, setFocus, mode, focus, match, isCorrect, currentLetter, setMatch, sendTry, colors, historyLetter, historyAttempts, index, setCurrentLetter }: Props) => {
+export const Attempt = ({ changeFocus, ClipboardIndex, setFocus, mode, focus, match, isCorrect, currentLetter, setMatch, sendTry, colors, historyLetter, historyAttempts, index, setCurrentLetter }: Props) => {
   const currentValue = match.chance === index ? currentLetter.reduce((a, b) => a += b === '' ? ' ' : b, '') : '';
   const inMode = mode ? ClipboardIndex === match.currentClipboard ? '100%' : '0' : '100%';
   const qtdLetters = match.letters.length as 1 | 2 | 4;
@@ -92,6 +93,10 @@ export const Attempt = ({ ClipboardIndex, setFocus, mode, focus, match, isCorrec
               key={i}
               borderWidth="0.125em"
               bgColor={historyAttempts ? getColor(historyAttempts[i]) : undefined}
+              onFocus={() => {
+                changeFocus(i)
+                setFocus(i)
+              }}
               readOnly
               boxSize={boxSize[qtdLetters]}
               fontSize={fontSize[qtdLetters]}
@@ -111,11 +116,9 @@ export const Attempt = ({ ClipboardIndex, setFocus, mode, focus, match, isCorrec
         >
           {Array.from({ length: 5 }).map((e, i) => (
             <PinInputField
-              // h={qtdLetters > 1 ? ["20px", "40px"] : ['32px', '40px']}
               boxSize={boxSize[qtdLetters]}
               fontSize={fontSize[qtdLetters]}
               fontWeight="bold"
-              // fontSize={"2.5em"}
               readOnly
               borderWidth="0.125em"
               _disabled={{ cursor: '' }}
