@@ -55,7 +55,7 @@ export const Header = ({ setNotFoundLetters, setMatch, onChange, changeMode, cha
           <Instruction />
         </Flex>
         <Box>
-          <Text >COISA DE NERDE</Text>
+          <Text >COISA DE NERD</Text>
         </Box>
         <Box>
           <Settings setNotFoundLetters={setNotFoundLetters} setFocus={setFocus} changeMode={changeMode} mode={mode} changeColor={changeColor} colors={colors} />
