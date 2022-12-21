@@ -6,7 +6,7 @@ import { ICurrentAttempt } from '../interfaces/ICurrentAttempt';
 import { IMatch } from '../interfaces/IMatch';
 const array = Object.values(json).flat();
 
-export const getRandomLetter = () => replaceSpecialChars(array[Math.trunc(Math.random() * 12830)])
+export const getRandomLetter = () => replaceSpecialChars(array[Math.trunc(Math.random() * array.length - 1)])
 
 export const findInDb = (letter: string) => {
   return json[(letter[0] as "a")].find(e => replaceSpecialChars(e) === letter)
