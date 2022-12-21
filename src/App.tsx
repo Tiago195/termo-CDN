@@ -52,7 +52,7 @@ export const App = () => {
   const sendTry = () => {
     const letter = currentLetter.join('');
     if (!findInDb(letter)) {
-      const valid = letter === "risao" || letter === "raios"
+      const valid = letter === "risao" || letter === "raios" || "aureo"
 
       toast({
         status: "info",
